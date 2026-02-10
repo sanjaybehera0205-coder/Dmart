@@ -7,18 +7,18 @@ router = APIRouter()
 product_crud = MongoCRUD(product_collection)
 
 
-@router.post("/")
+@router.post("/product")
 def create_product(product: ProductCreate):
     product_id = product_crud.create(product.dict())
     return {"message": "Product created", "id": product_id}
 
 
-@router.get("/")
+@router.get("/product")
 def get_products():
     return product_crud.get_all()
 
 
-@router.get("/{product_id}")
+@router.get("/product/{product_id}")
 def get_product(product_id: str):
     product = product_crud.get_by_id(product_id)
     if not product:
@@ -26,7 +26,7 @@ def get_product(product_id: str):
     return product
 
 
-@router.put("/{product_id}")
+@router.put("/product/{product_id}")
 def update_product(product_id: str, product: ProductCreate):
     updated = product_crud.update(product_id, product.dict())
     if not updated:
@@ -34,7 +34,7 @@ def update_product(product_id: str, product: ProductCreate):
     return {"message": "Product updated"}
 
 
-@router.delete("/{product_id}")
+@router.delete("/product/{product_id}")
 def delete_product(product_id: str):
     deleted = product_crud.delete(product_id)
     if not deleted:
