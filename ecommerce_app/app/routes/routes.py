@@ -12,7 +12,6 @@ def login_page(request: Request):
         {"request": request}
     )
 
-
 @router.get("/signup")
 def signup_page(request: Request):
     return templates.TemplateResponse(
@@ -24,5 +23,36 @@ def signup_page(request: Request):
 def signup_page(request: Request):
     return templates.TemplateResponse(
         "dashboard.html",
+        {"request": request}
+    )
+
+@router.get("/users")
+def signup_page(request: Request):
+    return templates.TemplateResponse(
+        "users.html",
+        {"request": request}
+    )
+@router.get("/cart")
+def signup_page(request: Request):
+    return templates.TemplateResponse(
+        "cart.html",
+        {"request": request}
+    )
+@router.get("/order")
+def signup_page(request: Request):
+    return templates.TemplateResponse(
+        "order.html",
+        {"request": request}
+    )
+@router.get("/profile")
+def signup_page(request: Request):
+    return templates.TemplateResponse(
+        "profile.html",
+        {"request": request}
+    )
+@router.get("/settings")
+def signup_page(request: Request):
+    return templates.TemplateResponse(
+        "settings.html",
         {"request": request}
     )

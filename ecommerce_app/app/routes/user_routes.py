@@ -9,7 +9,7 @@ user_crud = MongoCRUD(user_collection)
 
 
 # CREATE USER
-@router.post("/")
+@router.post("/creatuser")
 def create_user(user: UserCreate):
     data = user.dict()
     data["password"] = hash_password(data["password"])
@@ -19,7 +19,7 @@ def create_user(user: UserCreate):
 
 
 # GET ALL USERS
-@router.get("/")
+@router.get("/fetchuser")
 def get_users():
     users = user_crud.get_all()
     for u in users:
@@ -27,35 +27,28 @@ def get_users():
     return users
 
 
-# GET USER BY ID
-@router.get("/{user_id}")
-def get_user(user_id: str):
-    user = user_crud.get_by_id(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
 
-    user.pop("password", None)
-    return user
-
-
-# UPDATE USER
-@router.put("/{user_id}")
+@router.put("/updateuser/{user_id}")
 def update_user(user_id: str, user: UserCreate):
     data = user.dict()
     data["password"] = hash_password(data["password"])
 
-    updated = user_crud.update(user_id, data)
-    if not updated:
+    # Update using user_id instead of _id
+    result = user_collection.update_one({"user_id": user_id}, {"$set": data})
+
+    if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Update failed")
 
-    return {"message": "User updated"}
+    return {"message": "User updated successfully"}
 
 
-# DELETE USER
-@router.delete("/{user_id}")
+
+@router.delete("/users/{user_id}")
 def delete_user(user_id: str):
-    deleted = user_crud.delete(user_id)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Delete failed")
-
-    return {"message": "User deleted"}
+    # Delete by the custom user_id field
+    deleted = user_crud.collection.delete_one({"user_id": user_id})
+    
+    if deleted.deleted_count > 0:
+        return {"message": "User deleted successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="User not found")
