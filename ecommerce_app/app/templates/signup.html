@@ -35,7 +35,7 @@
 
         <p class="text-center mt-3">
             Already have an account?
-            <a href="/" class="text-blue-600 fw-semibold">Login</a>
+            <a href="/login" class="text-blue-600 fw-semibold">Login</a>
         </p>
 
     </div>
@@ -51,7 +51,7 @@ $(document).ready(function () {
         const password = $("#password").val();
 
         $.ajax({
-            url: "/auth/register",
+            url: "/register",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -66,7 +66,7 @@ $(document).ready(function () {
                     .text("✅ Registration successful! Redirecting to login...");
 
                 setTimeout(() => {
-                    window.location.href = "/";
+                    window.location.href = "/login";
                 }, 1500);
             },
             error: function (xhr) {
