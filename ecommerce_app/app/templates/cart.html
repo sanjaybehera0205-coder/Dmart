@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Shopping Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding-top: 80px;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .product-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .price {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+        .filter-bar {
+            margin-bottom: 20px;
+        }
+        .cart-btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ShopMate</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"><i class="bi bi-house-door"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-cart"></i> Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-person-circle"></i> Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Filter/Search Bar -->
+<div class="container filter-bar">
+    <div class="row g-2">
+        <div class="col-md-6">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search products...">
+        </div>
+        <div class="col-md-6 text-end">
+            <select id="categoryFilter" class="form-select w-auto d-inline-block">
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="books">Books</option>
+                <option value="home">Home</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- Product Grid -->
+<div class="container">
+    <div class="row g-4" id="product-list">
+        <!-- Example Product Card -->
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="electronics">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200?text=Product+1" alt="Product 1">
+                <div class="card-body text-center">
+                    <h5 class="product-title">Wireless Headphones</h5>
+                    <p class="price">$49.99</p>
+                    <button class="btn cart-btn w-100"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 col-lg-3 product-card" data-category="fashion">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200?text=Product+2" alt="Product 2">
+                <div class="card-body text-center">
+                    <h5 class="product-title">Stylish Jacket</h5>
+                    <p class="price">$79.99</p>
+                    <button class="btn cart-btn w-100"><i class="bi bi-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more product cards here -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Search Functionality
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const productList = document.getElementById('product-list');
+    const products = Array.from(productList.getElementsByClassName('product-card'));
+
+    searchInput.addEventListener('input', filterProducts);
+    categoryFilter.addEventListener('change', filterProducts);
+
+    function filterProducts() {
+        const searchText = searchInput.value.toLowerCase();
+        const category = categoryFilter.value;
+
+        products.forEach(product => {
+            const title = product.querySelector('.product-title').textContent.toLowerCase();
+            const productCategory = product.getAttribute('data-category');
+
+            if (title.includes(searchText) && (category === '' || category === productCategory)) {
+                product.style.display = '';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

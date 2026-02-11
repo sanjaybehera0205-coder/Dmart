@@ -2,15 +2,31 @@ from fastapi import APIRouter, HTTPException
 from app.schemas.product_schema import ProductCreate
 from app.core.database import product_collection
 from app.core.crud import MongoCRUD
-
+import uuid
+from datetime import datetime
 router = APIRouter()
 product_crud = MongoCRUD(product_collection)
 
 
 @router.post("/product")
 def create_product(product: ProductCreate):
-    product_id = product_crud.create(product.dict())
-    return {"message": "Product created", "id": product_id}
+    data = product.dict()
+
+    #  Generate 12-character UUID
+    data["product_id"] = uuid.uuid4().hex[:12].upper()
+
+    # ⭐ Default fields
+    data["rating"] = 0.0
+    data["reviews_count"] = 0
+    data["created_at"] = datetime.utcnow()
+
+    # Save to DB
+    product_crud.create(data)
+
+    return {
+        "message": "Product created successfully",
+        "product_id": data["product_id"]
+    }
 
 
 @router.get("/product")
@@ -20,9 +36,11 @@ def get_products():
 
 @router.get("/product/{product_id}")
 def get_product(product_id: str):
-    product = product_crud.get_by_id(product_id)
+    product = product_crud.get_by_product_id(product_id)
+
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
+
     return product
 
 
@@ -40,3 +58,4 @@ def delete_product(product_id: str):
     if not deleted:
         raise HTTPException(status_code=404, detail="Delete failed")
     return {"message": "Product deleted"}
+

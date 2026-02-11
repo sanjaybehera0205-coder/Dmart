@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'head.html'%}
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-light">
+
 {% include 'header.html'%}
-<div class="card shadow-lg rounded-4 w-full max-w-md p-4">
-    <div class="card-body">
 
-        <h3 class="text-center fw-bold mb-4 text-gray-800">
-            Login to Your Account
-        </h3>
-        <!-- Alert -->
-        <div id="alertBox" class="alert d-none"></div>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg rounded-4 w-100" style="max-width: 400px;">
+        <div class="card-body p-4">
 
-        <!-- Login Form -->
-        <form id="loginForm">
+            <h3 class="card-title text-center mb-4 fw-bold text-dark">
+                Login to Your Account
+            </h3>
 
-            <!-- Email -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">Email address</label>
-                <input
-                    type="email"
-                    id="email"
-                    class="form-control rounded-3"
-                    placeholder="Enter your email"
-                    required
+            <!-- Alert -->
+            <div id="alertBox" class="alert d-none"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        class="form-control rounded-3"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        class="form-control rounded-3"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <!-- Button -->
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100 py-2 rounded-3 fw-semibold"
                 >
-            </div>
+                    Login
+                </button>
+            </form>
 
-            <!-- Password -->
-            <div class="mb-3">
-                <label class="form-label fw-semibold">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    class="form-control rounded-3"
-                    placeholder="Enter your password"
-                    required
-                >
-            </div>
+            <p class="text-center mt-3 text-muted small">
+                Don’t have an account?
+                <a href="/signup" class="text-primary fw-semibold text-decoration-none">
+                    Sign up
+                </a>
+            </p>
 
-            <!-- Button -->
-            <button
-                type="submit"
-                class="btn btn-primary w-100 py-2 rounded-3 fw-semibold"
-            >
-                Login
-            </button>
-
-        </form>
-
-        <p class="text-center mt-3 text-sm text-gray-600">
-            Don’t have an account?
-            <a href="/signup" class="text-blue-600 fw-semibold hover:underline">
-                Sign up
-            </a>
-        </p>
-
+        </div>
     </div>
 </div>
 
+<!-- jQuery & Bootstrap JS (ensure these are loaded in head.html) -->
 <script>
 $(document).ready(function () {
-
     $("#loginForm").submit(function (e) {
-        e.preventDefault(); // stop reload
+        e.preventDefault(); // prevent reload
 
         const email = $("#email").val();
         const password = $("#password").val();
@@ -72,33 +75,27 @@ $(document).ready(function () {
             url: "/login",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({
-                email: email,
-                password: password
-            }),
+            data: JSON.stringify({ email, password }),
             success: function (response) {
 
-                // store token (important)
+                // store token
                 localStorage.setItem("access_token", response.access_token);
 
                 $("#alertBox")
                     .removeClass("d-none alert-danger")
-                    .addClass("alert-success")
+                    .addClass("alert alert-success")
                     .text("✅ Login successful! Redirecting...");
 
-                setTimeout(() => {
-                    window.location.href = "/dashboard";
-                }, 1000);
+                setTimeout(() => window.location.href = "/dashboard", 1000);
             },
             error: function (xhr) {
                 $("#alertBox")
                     .removeClass("d-none alert-success")
-                    .addClass("alert-danger")
-                    .text(xhr.responseJSON.detail || "Login failed");
+                    .addClass("alert alert-danger")
+                    .text(xhr.responseJSON?.detail || "Login failed");
             }
         });
     });
-
 });
 </script>
 

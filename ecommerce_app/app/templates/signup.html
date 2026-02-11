@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 {% include 'head.html'%}
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-light">
+
 {% include 'header.html'%}
 
-<div class="card shadow-lg rounded-4 w-full max-w-md p-4">
-    <div class="card-body">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg rounded-4 w-100" style="max-width: 400px;">
+        <div class="card-body p-4">
 
-        <h3 class="text-center fw-bold mb-4">📝 Create Account</h3>
+            <h3 class="card-title text-center mb-4 fw-bold">Create Account</h3>
+            <div id="alertBox" class="alert d-none"></div>
+            <!-- Signup Form -->
+            <form id="signupForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                </div>
 
-        <!-- Alert -->
-        <div id="alertBox" class="alert d-none"></div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
 
-        <!-- Signup Form -->
-        <form id="signupForm">
-            <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="name" id="name" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" id="email" class="form-control" required>
-            </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
 
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" id="password" class="form-control" required>
-            </div>
+                <button type="submit" class="btn btn-success w-100">Sign Up</button>
+            </form>
 
-            <button type="submit" class="btn btn-success w-100">
-                Sign Up
-            </button>
-        </form>
+            <p class="text-center mt-3">
+                Already have an account?
+                <a href="/login" class="text-decoration-none fw-semibold text-primary">Login</a>
+            </p>
 
-        <p class="text-center mt-3">
-            Already have an account?
-            <a href="/login" class="text-blue-600 fw-semibold">Login</a>
-        </p>
-
+        </div>
     </div>
 </div>
 
+<!-- jQuery & Bootstrap JS (ensure you have these loaded in head.html or here) -->
 <script>
 $(document).ready(function () {
-
     $("#signupForm").submit(function (e) {
-        e.preventDefault(); // stop page reload
+        e.preventDefault(); // prevent page reload
         const name = $("#name").val();
         const email = $("#email").val();
         const password = $("#password").val();
@@ -54,30 +53,23 @@ $(document).ready(function () {
             url: "/register",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({
-                name: name,
-                email: email,
-                password: password
-            }),
+            data: JSON.stringify({ name, email, password }),
             success: function (response) {
                 $("#alertBox")
                     .removeClass("d-none alert-danger")
-                    .addClass("alert-success")
+                    .addClass("alert alert-success")
                     .text("✅ Registration successful! Redirecting to login...");
 
-                setTimeout(() => {
-                    window.location.href = "/login";
-                }, 1500);
+                setTimeout(() => window.location.href = "/login", 1500);
             },
             error: function (xhr) {
                 $("#alertBox")
                     .removeClass("d-none alert-success")
-                    .addClass("alert-danger")
-                    .text(xhr.responseJSON.detail || "Registration failed");
+                    .addClass("alert alert-danger")
+                    .text(xhr.responseJSON?.detail || "Registration failed");
             }
         });
     });
-
 });
 </script>
 

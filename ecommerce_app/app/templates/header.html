@@ -1,34 +1,70 @@
+<!-- Header / Navbar -->
+<header>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top">
+    <div class="container-fluid">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand fw-bold" href="#">ShopMate</a>
 
-    <!-- Header / Navbar -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <div class="container">
-                <!-- Brand / Project Name -->
-                <a class="navbar-brand fw-bold" href="#">Dmart</a>
+        <!-- Toggler / Mobile Menu -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <!-- Toggler for mobile view -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <!-- Navbar content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- Left side: Search bar -->
+            <form class="d-flex me-auto my-2 my-lg-0" role="search">
+                <input class="form-control me-2 rounded-pill" type="search" placeholder="Search products..." aria-label="Search">
+                <button class="btn btn-light rounded-pill" type="submit"><i class="bi bi-search"></i></button>
+            </form>
 
-                <!-- Navigation links -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
-                        </li>
+            <!-- Right side: Links / Icons -->
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#"><i class="bi bi-house-door"></i> Home</a>
+                </li>
+
+                <!-- Cart with badge -->
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="#"><i class="bi bi-cart"></i> Cart
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                            <span class="visually-hidden">items in cart</span>
+                        </span>
+                    </a>
+                </li>
+
+                <!-- Notifications -->
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="#"><i class="bi bi-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+                            5
+                            <span class="visually-hidden">unread notifications</span>
+                        </span>
+                    </a>
+                </li>
+
+                <!-- Profile dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> Account
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                     </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+                </li>
+
+                <!-- Login / Signup (optional if user not logged in) -->
+                <!--
+                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2" href="/signup">Sign Up</a></li>
+                -->
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>

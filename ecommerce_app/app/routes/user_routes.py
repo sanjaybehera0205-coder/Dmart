@@ -3,19 +3,25 @@ from app.schemas.user_schema import UserCreate
 from app.core.database import user_collection
 from app.core.crud import MongoCRUD
 from app.core.security import hash_password
+import uuid
 
 router = APIRouter()
 user_crud = MongoCRUD(user_collection)
 
-
-# CREATE USER
-@router.post("/creatuser")
+# CrEATE USER
+@router.post("/createuser")
 def create_user(user: UserCreate):
     data = user.dict()
+    #  Hash password
     data["password"] = hash_password(data["password"])
-
-    user_id = user_crud.create(data)
-    return {"message": "User created", "id": user_id}
+    #  Generate 8-character unique user_id
+    data["user_id"] = uuid.uuid4().hex[:8].upper()
+    # Save to DB
+    user_crud.create(data)
+    return {
+        "message": "User created successfully",
+        "user_id": data["user_id"]
+    }
 
 
 # GET ALL USERS

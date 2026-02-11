@@ -9,6 +9,13 @@ class MongoCRUD:
         result = self.collection.insert_one(data)
         return str(result.inserted_id)
     
+    # get by product id 
+    def get_by_product_id(self, product_id: str):
+        item = self.collection.find_one({"product_id": product_id})
+        if item:
+            item["_id"] = str(item["_id"])
+        return item
+
     # READ ALL
     def get_all(self):
         results = []
@@ -18,16 +25,18 @@ class MongoCRUD:
         return results
 
     # UPDATE
-    def update(self, id: str, data: dict):
+    def update(self, product_id: str, data: dict):
         result = self.collection.update_one(
-            {"_id": ObjectId(id)},
+            {"product_id": product_id},   # ✅ use custom field
             {"$set": data}
         )
         return result.modified_count > 0
+    
+    def delete(self, product_id: str):
+        result = self.collection.delete_one(
+            {"product_id": product_id}   # ✅ use product_id
+        )
+        return result.deleted_count > 0
 
-    def delete(self, user_id: str):
-        # Use your custom user_id field
-        result = self.collection.delete_one({"user_id": user_id})
-        return result.deleted_count
 
 
