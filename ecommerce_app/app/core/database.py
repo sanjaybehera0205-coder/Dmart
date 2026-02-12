@@ -14,9 +14,9 @@ client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
 # Test connection
 try:
     client.admin.command("ping")
-    print("✅ Connected to MongoDB Atlas successfully!")
+    print("Connected to MongoDB Atlas successfully!")
 except Exception as e:
-    print("❌ MongoDB connection failed:", e)
+    print("MongoDB connection failed:", e)
 
 # Database
 db = client["ecommerce_db"]

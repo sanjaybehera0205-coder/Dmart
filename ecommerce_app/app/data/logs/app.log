@@ -1,0 +1,31 @@
+2026-02-13 00:38:06,590 - INFO - ecommerce_app - Incoming Request: POST /register
+2026-02-13 00:38:06,591 - WARNING - ecommerce_app - Unauthorized access attempt: /register
+2026-02-13 00:39:13,876 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:40:03,786 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:40:31,363 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:40:57,082 - INFO - ecommerce_app - Incoming Request: POST /register
+2026-02-13 00:40:57,084 - INFO - ecommerce_app - Incoming request: POST http://127.0.0.1:8000/register
+2026-02-13 00:40:57,483 - INFO - ecommerce_app - Completed POST http://127.0.0.1:8000/register Status: 200 Time: 0.3997s
+2026-02-13 00:43:22,576 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:44:14,893 - INFO - ecommerce_app - Incoming Request: POST /register
+2026-02-13 00:44:14,894 - INFO - ecommerce_app - Incoming request: POST http://127.0.0.1:8000/register
+2026-02-13 00:44:14,960 - INFO - ecommerce_app - Completed POST http://127.0.0.1:8000/register Status: 400 Time: 0.0659s
+2026-02-13 00:44:48,592 - INFO - ecommerce_app - Incoming Request: POST /login
+2026-02-13 00:44:48,592 - WARNING - ecommerce_app - Unauthorized access attempt: /login
+2026-02-13 00:56:39,185 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:57:06,926 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:57:35,657 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:57:56,909 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:58:24,852 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 00:59:53,224 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:00:21,241 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:00:40,110 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:01:55,034 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:02:21,890 - INFO - ecommerce_app - Incoming request: POST http://127.0.0.1:8000/login
+2026-02-13 01:02:21,905 - INFO - ecommerce_app - Completed POST http://127.0.0.1:8000/login Status: 422 Time: 0.0151s
+2026-02-13 01:03:41,736 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:04:08,402 - INFO - ecommerce_app - Server Started Successfully
+2026-02-13 01:04:46,675 - INFO - ecommerce_app - Incoming request: POST http://127.0.0.1:8000/register
+2026-02-13 01:04:46,736 - INFO - ecommerce_app - Completed POST http://127.0.0.1:8000/register Status: 400 Time: 0.0616s
+2026-02-13 01:04:57,839 - INFO - ecommerce_app - Incoming request: POST http://127.0.0.1:8000/register
+2026-02-13 01:04:58,394 - INFO - ecommerce_app - Completed POST http://127.0.0.1:8000/register Status: 200 Time: 0.5549s

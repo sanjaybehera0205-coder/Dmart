@@ -1,17 +1,31 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
+from app.initialize import initialize
+from app.routes import (auth_routes,product_routes,user_routes,routes,cart_routes,order_routes)
+from app.shared.middleware.auth_middleware import AuthMiddleware
 
-from app.routes import auth_routes, product_routes, user_routes, routes,cart_routes, order_routes
+from app.shared.middleware.logging_middleware import LoggingMiddleware
+# from app.middleware.rate_limit_middleware import RateLimitMiddleware
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup logic
+    initialize("app/config/app.properties")
+    yield
+    # Shutdown logic (if needed)
+    print("Application shutting down...")
 
-app = FastAPI(title="E-Commerce API")
+app = FastAPI(
+    title="E-Commerce API",
+    lifespan=lifespan
+)
 
-# Static files
-# app.mount("/static", StaticFiles(directory="app/static"), name="static")
+#  Add Middleware (ORDER MATTERS)
+app.add_middleware(LoggingMiddleware)
+# app.add_middleware(RateLimitMiddleware)
+app.add_middleware(AuthMiddleware)
 
-# HTML Pages
+# Include Routers
 app.include_router(routes.router, tags=["App"])
-
-# API Routes
 app.include_router(auth_routes.router, tags=["Auth"])
 app.include_router(product_routes.router, tags=["Products"])
 app.include_router(user_routes.router, tags=["Users"])
